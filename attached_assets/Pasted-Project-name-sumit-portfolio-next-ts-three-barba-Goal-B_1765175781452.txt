@@ -1,0 +1,181 @@
+Project name: sumit-portfolio-next-ts-three-barba
+Goal: Build a production-ready, fully animated, Gen-Z dark-rave themed developer portfolio using Next.js + TypeScript, three.js for interactive 3D hero/background, and barba.js for smooth page transitions. Focus on performance, accessibility, and clear modular code. Deliver a runnable repo with README and deployment instructions.
+
+Tech stack:
+- Next.js (TypeScript, App Router)
+- three.js for 3D interactive hero/scene
+- barba.js for page-to-page transitions (integrate with Next.js router)
+- CSS using CSS Modules or Tailwind CSS (choose one; if Tailwind, include config)
+- Optional small utility: tiny animation helpers (no heavy extra animation frameworks unless needed)
+- No external UI frameworks (no Bootstrap/Material UI). Keep bundle small.
+
+Design & theme:
+- Gen-Z dark rave: deep black / near-black background, neon accents (magenta, electric cyan, lime), subtle grain/scanline texture, neon glow, bold monospace + modern sans pairing.
+- Use CSS variables for theme tokens.
+- Fully responsive (mobile-first).
+
+Pages / routes:
+- / (Home / Hero with interactive three.js scene)
+- /about (bio, education)
+- /skills (skills with animated bars / radial charts)
+- /experience (timeline)
+- /projects (project cards, filters, dynamic detail modal or page)
+- /contact (form that sends email via serverless API route /api/contact; validate on client + server)
+
+Core features (must implement):
+1. Interactive 3D hero using three.js — subtle parallax responding to mouse/touch and a looping animation. Keep polycount low; use simple geometry (instanced particles or stylized shapes).
+2. Barba.js page transitions integrated with Next.js App Router (or emulate via custom client-side navigation): smooth fade + neon sweep; prefetch next page content and animate out/in.
+3. Animated skill visualizations (bars, radial, or small intrinsic SVG animations).
+4. Project cards with hover/tilt effect; clicking opens project detail with a smooth route transition.
+5. Dark rave theme: CSS variables, neon glows, animated background overlays (subtle).
+6. Accessibility: keyboard focus states, semantic HTML, aria labels for interactive elements.
+7. Performance: lazy load three.js and heavy assets, use next/image for images, code-split, tree-shake.
+8. Developer-friendly structure and TypeScript types for props + models.
+
+Deliverables:
+- Complete Next.js TypeScript project in repo root.
+- README with run & deploy instructions (npm i, npm run dev, build & export details).
+- Scripts: dev, build, start, lint (optional), preview.
+- Minimal, realistic example content for skills, education, experience and 3 sample projects (use placeholders but realistic).
+- .gitignore, package.json, tsconfig.json, next.config.js if needed.
+- A single .env.example (if API needs keys) and a serverless /api/contact route that logs or sends via nodemailer (explain where to put SMTP env vars).
+
+Non-negotiable constraints:
+- Keep third-party dependencies minimal and justified.
+- Avoid huge models, large media files, or unnecessary demo data.
+- Code must compile and run with `npm run dev`.
+- Provide clear comments in code where complex integration happens (three.js scene setup, barba integration).
+
+Acceptance criteria (tests you must pass before finishing):
+1. `npm run dev` starts locally and shows the Home page with an animated three.js hero.
+2. Navigating between pages shows barba-like transitions (smooth, no flash).
+3. Mobile and desktop responsive, with functioning contact form (server route stub).
+4. Page load performance is reasonable — assets lazy-loaded; three.js code chunk loaded client-side only.
+5. All TS types compile without `any` leaks for the main app (small `any` allowed in complex three.js glue if documented).
+
+Repository layout (required):
+- /app
+  - /layout.tsx (main layout + theme CSS variables and barba integration hook)
+  - /page.tsx (home)
+  - /about/page.tsx
+  - /skills/page.tsx
+  - /experience/page.tsx
+  - /projects/page.tsx
+  - /contact/page.tsx
+- /components
+  - Hero3D.tsx (three.js encapsulated, lazy loaded)
+  - Navbar.tsx
+  - Footer.tsx
+  - ProjectCard.tsx
+  - SkillChart.tsx
+  - Timeline.tsx
+  - TransitionLayer.tsx (used by barba transitions)
+- /styles
+  - globals.css or tailwind.css
+  - theme.css (CSS variables)
+- /lib
+  - barbaClient.ts (barba init and hooks)
+  - threeHelpers.ts
+- /pages/api
+  - contact.ts
+- next.config.js, tsconfig.json, package.json, README.md
+
+Small code snippets to include (agent must produce these files or equivalents):
+
+1) Theme variables (styles/theme.css)
+```css
+:root {
+  --bg: #06040a;
+  --panel: #0b0a10;
+  --neon-pink: #ff00c8;
+  --neon-cyan: #00e5ff;
+  --neon-lime: #a8ff00;
+  --muted: #9aa0a6;
+  --glow: 0 6px 30px rgba(255,0,200,0.12), 0 4px 12px rgba(0,230,255,0.06);
+  --card-radius: 14px;
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+}
+body { background: var(--bg); color: #e6e7ea; font-family: var(--font-sans); }
+three.js lazy loader pattern (components/Hero3D.tsx)
+
+ts
+Copy code
+'use client';
+import React, { useRef, useEffect } from 'react';
+import * as THREE from 'three';
+
+export default function Hero3D() {
+  const mountRef = useRef<HTMLDivElement | null>(null);
+  useEffect(() => {
+    let renderer: THREE.WebGLRenderer, scene: THREE.Scene, camera: THREE.PerspectiveCamera, animId: number;
+    const container = mountRef.current!;
+    // init renderer, camera, scene (low poly, minimal lights)
+    // simple animation loop and mouse parallax
+    // cleanup on unmount
+    return () => { if (animId) cancelAnimationFrame(animId); renderer?.dispose(); };
+  }, []);
+  return <div ref={mountRef} style={{width:'100%',height:'520px'}} />;
+}
+(Agent must write full implementation—keep geometry simple and performant; instanced points, soft glow via postprocessing is optional.)
+
+Barba integration strategy (lib/barbaClient.ts):
+
+Initialize barba on client side; use a TransitionLayer component overlay that animates in/out.
+
+Ensure integration with Next.js routing by disabling full page reloads (barba works best when you manage client-side navigation) — implement barba only for animations and let Next handle routing; or emulate barba animations using a shared TransitionLayer and Next's navigation events.
+
+Contact API (pages/api/contact.ts)
+
+ts
+Copy code
+import type { NextApiRequest, NextApiResponse } from 'next';
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
+  const { name, email, message } = req.body;
+  if (!name || !email || !message) return res.status(422).json({ error: 'Missing fields' });
+  // For demo: log and return success. In README mention SMTP integration with env vars.
+  console.log('CONTACT', { name, email, message });
+  return res.status(200).json({ ok: true });
+}
+Testing & run commands (include in README):
+
+npm install
+
+npm run dev (localhost:3000)
+
+npm run build && npm run start
+
+Final note for the agent:
+
+Produce concise code with comments, small assets only, and a brief README that includes: project summary, how to run, design decisions (three.js + barba handling), and where to place environment variables for SMTP if the user wants real email sending.
+
+Keep the repository under ~50MB; avoid large audio/video files.
+
+End of prompt.
+
+yaml
+Copy code
+
+---
+
+### Quick developer cheat-sheet (very short — give this to the Replit agent if it asks for more)
+1. Build the UI in Next.js App Router with TypeScript.
+2. Lazy-load three.js (dynamic import + `ssr: false` or client component).
+3. Implement a global TransitionLayer component; use Next.js client navigation events (`usePathname` + `startTransition`) to trigger barba-like animations if full barba integration becomes problematic with SSR — but still include a `lib/barbaClient.ts` showing how to initialize barba for non-SSR flows.
+4. Keep components small and typed; export interfaces for key props (Project, ExperienceItem).
+5. Use CSS variables for theme; include a `.palette` file with suggested colors above.
+6. README must state where to change sample content (a JSON or /data folder).
+
+---
+
+If you want, I can now:
+- convert this into a single-file `replit` assistant message ready for one-click paste, or
+- generate the actual Next.js starter repo here in the chat (I’ll produce all files).  
+
+Which next step do you want?
+
+
+
+
+
