@@ -21,10 +21,8 @@ export default function Footer() {
               href="/"
               className="font-mono text-xl font-bold tracking-tight inline-block"
             >
-              <span className="text-neon-pink">S</span>
-              <span className="text-foreground">umit</span>
-              <span className="text-neon-cyan">.</span>
-              <span className="text-foreground">dev</span>
+              <span className="text-neon-pink">SUMIT</span>
+              <span className="text-foreground">&nbsp;KUMAR</span>
             </Link>
             <p className="text-muted-foreground text-sm max-w-xs">
               Building digital experiences with code, creativity, and a touch of neon.
@@ -70,11 +68,11 @@ export default function Footer() {
             </div>
             <p className="text-muted-foreground text-sm">
               <a 
-                href="mailto:sumit@example.com" 
+                href="mailto:sumitkumajune48@gmail.com" 
                 className="hover:text-neon-cyan transition-colors"
                 data-testid="link-email"
               >
-                sumit@example.com
+                sumitkumajune48@gmail.com
               </a>
             </p>
           </div>

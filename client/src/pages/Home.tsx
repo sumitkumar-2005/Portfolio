@@ -1,7 +1,6 @@
 import { Link } from 'wouter';
 import { ArrowRight, ChevronDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import Hero3D from '@/components/Hero3D';
 
 export default function Home() {
   const scrollToContent = () => {
@@ -10,19 +9,14 @@ export default function Home() {
 
   return (
     <div className="relative" data-testid="page-home">
-      <section className="relative h-screen flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0">
-          <Hero3D className="w-full h-full" />
-        </div>
-
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background pointer-events-none" />
-
-        <div className="absolute inset-0 opacity-[0.02] pointer-events-none bg-scanlines" />
+      <section className="relative h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-black via-[#0a0f1c] to-black">
+        <div className="absolute inset-0 opacity-30 bg-[radial-gradient(circle_at_top_left,#ff00cc,transparent_35%),radial-gradient(circle_at_top_right,#00e5ff,transparent_35%),radial-gradient(circle_at_bottom,#b3ff00,transparent_45%)]" />
+        <div className="absolute inset-0 opacity-[0.05] pointer-events-none bg-scanlines" />
 
         <div className="relative z-10 text-center px-6 max-w-4xl mx-auto">
           <div className="animate-fade-in" style={{ animationDelay: '200ms' }}>
             <span className="inline-block px-4 py-2 rounded-full bg-neon-pink/10 text-neon-pink text-sm font-mono mb-6 border border-neon-pink/20">
-              Full Stack Developer
+              Data Analyst
             </span>
           </div>
 
@@ -32,7 +26,7 @@ export default function Home() {
           >
             <span className="text-foreground">Hi, I'm </span>
             <span className="text-neon-pink drop-shadow-[0_0_20px_rgba(255,0,200,0.5)]">
-              Sumit
+              SUMIT KUMAR
             </span>
             <br />
             <span className="text-foreground">I build </span>
@@ -40,6 +34,12 @@ export default function Home() {
               digital experiences
             </span>
           </h1>
+          <p
+            className="text-base md:text-lg text-neon-lime font-mono mb-4 animate-fade-in"
+            style={{ animationDelay: '520ms' }}
+          >
+            BCA Student · Fresher · Aspiring Data Analyst
+          </p>
 
           <p 
             className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 animate-fade-in"
@@ -82,19 +82,19 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
               {
-                number: '5+',
-                label: 'Years Experience',
+                number: '0',
+                label: 'Years Experience (Fresher)',
                 color: 'text-neon-pink',
               },
               {
-                number: '50+',
-                label: 'Projects Completed',
+                number: '0',
+                label: 'Live Projects Delivered',
                 color: 'text-neon-cyan',
               },
               {
-                number: '20+',
+                number: '—',
                 label: 'Happy Clients',
-                color: 'text-neon-lime',
+                color: 'text-muted-foreground',
               },
             ].map((stat, index) => (
               <div

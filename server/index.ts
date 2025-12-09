@@ -85,14 +85,35 @@ app.use((req, res, next) => {
   // this serves both the API and the client.
   // It is the only port that is not firewalled.
   const port = parseInt(process.env.PORT || "5000", 10);
-  httpServer.listen(
-    {
-      port,
-      host: "0.0.0.0",
-      reusePort: true,
-    },
-    () => {
-      log(`serving on port ${port}`);
-    },
-  );
+  // Windows sockets often do not support reusePort; set it only when available.
+  const listenOptions: {
+    port: number;
+    host: string;
+    reusePort?: boolean;
+  } = {
+    port,
+    host: "0.0.0.0",
+  };
+  if (process.platform !== "win32") {
+    listenOptions.reusePort = true;
+  }
+
+  const startServer = (p: number) => {
+    listenOptions.port = p;
+    httpServer.listen(listenOptions, () => {
+      log(`serving on port ${p}`);
+    });
+  };
+
+  httpServer.once("error", (err: any) => {
+    if (err?.code === "EADDRINUSE") {
+      const fallbackPort = port + 1;
+      log(`port ${port} in use, retrying on ${fallbackPort}`, "express");
+      startServer(fallbackPort);
+    } else {
+      throw err;
+    }
+  });
+
+  startServer(port);
 })();

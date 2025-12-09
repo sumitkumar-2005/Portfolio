@@ -96,17 +96,17 @@ export const experiences: Experience[] = [
 export const education: Education[] = [
   {
     id: "1",
-    institution: "University of Technology",
-    degree: "M.S. Computer Science",
-    duration: "2016 - 2018",
-    description: "Specialized in Human-Computer Interaction and Computer Graphics. Thesis on real-time 3D rendering optimization.",
+    institution: "Arcade Business College",
+    degree: "Bachelors in Computer Application (Pursuing)",
+    duration: "Present",
+    description: "Building foundations in computer applications with a focus on data analysis and software fundamentals.",
   },
   {
     id: "2",
     institution: "State University",
-    degree: "B.S. Software Engineering",
-    duration: "2012 - 2016",
-    description: "Graduated with honors. Focus on web technologies and distributed systems.",
+    degree: "Academic Background",
+    duration: "",
+    description: "Pursuing Bachelors in Computer Application at Arcade Business College.",
   },
 ];
 

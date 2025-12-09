@@ -79,67 +79,71 @@ export default function Skills() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="p-6 rounded-lg bg-card/50 border border-border/50">
-              <h3 className="font-mono text-neon-pink text-lg mb-4">Frontend</h3>
+              <h3 className="font-mono text-neon-pink text-lg mb-4">Data & Analytics</h3>
               <ul className="space-y-3 text-muted-foreground">
                 <li className="flex items-center gap-3">
                   <span className="w-2 h-2 rounded-full bg-neon-pink" />
-                  React / Next.js
+                  SQL
                 </li>
                 <li className="flex items-center gap-3">
                   <span className="w-2 h-2 rounded-full bg-neon-pink" />
-                  TypeScript
+                  Python
                 </li>
                 <li className="flex items-center gap-3">
                   <span className="w-2 h-2 rounded-full bg-neon-pink" />
-                  Tailwind CSS
+                  C++
                 </li>
                 <li className="flex items-center gap-3">
                   <span className="w-2 h-2 rounded-full bg-neon-pink" />
-                  Three.js / WebGL
+                  Machine Learning
+                </li>
+                <li className="flex items-center gap-3">
+                  <span className="w-2 h-2 rounded-full bg-neon-pink" />
+                  Data Visualization
                 </li>
               </ul>
             </div>
 
             <div className="p-6 rounded-lg bg-card/50 border border-border/50">
-              <h3 className="font-mono text-neon-cyan text-lg mb-4">Backend</h3>
+              <h3 className="font-mono text-neon-cyan text-lg mb-4">Tools & Platforms</h3>
               <ul className="space-y-3 text-muted-foreground">
                 <li className="flex items-center gap-3">
                   <span className="w-2 h-2 rounded-full bg-neon-cyan" />
-                  Node.js / Express
+                  Pandas / NumPy
                 </li>
                 <li className="flex items-center gap-3">
                   <span className="w-2 h-2 rounded-full bg-neon-cyan" />
-                  Python / FastAPI
+                  Jupyter / Colab
                 </li>
                 <li className="flex items-center gap-3">
                   <span className="w-2 h-2 rounded-full bg-neon-cyan" />
-                  PostgreSQL / MongoDB
+                  Matplotlib / Seaborn / Plotly
                 </li>
                 <li className="flex items-center gap-3">
                   <span className="w-2 h-2 rounded-full bg-neon-cyan" />
-                  GraphQL / REST APIs
+                  Tableau / Power BI
                 </li>
               </ul>
             </div>
 
             <div className="p-6 rounded-lg bg-card/50 border border-border/50">
-              <h3 className="font-mono text-neon-lime text-lg mb-4">DevOps & Tools</h3>
+              <h3 className="font-mono text-neon-lime text-lg mb-4">Foundations</h3>
               <ul className="space-y-3 text-muted-foreground">
                 <li className="flex items-center gap-3">
                   <span className="w-2 h-2 rounded-full bg-neon-lime" />
-                  Docker / Kubernetes
+                  Statistics & Probability
                 </li>
                 <li className="flex items-center gap-3">
                   <span className="w-2 h-2 rounded-full bg-neon-lime" />
-                  AWS / Vercel
+                  Data Cleaning & EDA
                 </li>
                 <li className="flex items-center gap-3">
                   <span className="w-2 h-2 rounded-full bg-neon-lime" />
-                  Git / GitHub Actions
+                  Version Control (Git/GitHub)
                 </li>
                 <li className="flex items-center gap-3">
                   <span className="w-2 h-2 rounded-full bg-neon-lime" />
-                  Figma / Adobe XD
+                  Communication & Storytelling
                 </li>
               </ul>
             </div>

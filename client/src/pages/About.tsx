@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { Code2, Palette, Zap, Heart } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import Timeline from '@/components/Timeline';
@@ -34,7 +35,17 @@ const highlights = [
   },
 ];
 
+const PHOTO_KEY = "about-profile-photo";
+
 export default function About() {
+  const [photoSrc, setPhotoSrc] = useState<string>("https://placehold.co/600x600?text=Your+Photo");
+
+  // Load persisted photo from localStorage
+  useEffect(() => {
+    const stored = localStorage.getItem(PHOTO_KEY);
+    if (stored) setPhotoSrc(stored);
+  }, []);
+
   return (
     <div className="min-h-screen pt-20 pb-16" data-testid="page-about">
       <div className="absolute inset-0 opacity-[0.02] pointer-events-none bg-scanlines" />
@@ -43,57 +54,100 @@ export default function About() {
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <span className="inline-block px-4 py-2 rounded-full bg-neon-cyan/10 text-neon-cyan text-sm font-mono mb-4 border border-neon-cyan/20">
-              About Me
+              Fresher Profile
             </span>
             <h1 className="text-3xl md:text-5xl font-bold mb-6">
-              Passionate Developer &{' '}
-              <span className="text-neon-pink">Creative Thinker</span>
+              Aspiring <span className="text-neon-pink">Data Analyst</span>
             </h1>
+            <p className="text-sm md:text-base text-muted-foreground font-mono">
+              Pursuing BCA from Arcade Business College
+            </p>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start">
             <div className="space-y-6">
               <div className="relative">
-                <div className="aspect-square max-w-md mx-auto lg:mx-0 rounded-lg bg-card border border-border/50 overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-br from-neon-pink/20 via-transparent to-neon-cyan/20" />
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="text-8xl font-mono font-bold text-neon-pink/20">S</div>
+                <div className="aspect-square max-w-md mx-auto lg:mx-0 rounded-lg bg-card border border-border/50 overflow-hidden relative">
+                  <div
+                    className="absolute inset-0 bg-cover bg-center"
+                    style={{
+                      backgroundImage: `url('${photoSrc}')`,
+                    }}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-br from-black/20 to-transparent" />
+                  <div className="absolute inset-x-0 bottom-3 flex flex-col gap-2 items-center px-4">
+                    <label className="w-full max-w-xs cursor-pointer">
+                      <input
+                        type="file"
+                        accept="image/*"
+                        className="hidden"
+                        onChange={(e) => {
+                          const file = e.target.files?.[0];
+                          if (file) {
+                            const reader = new FileReader();
+                            reader.onload = (ev) => {
+                              const result = ev.target?.result;
+                              if (typeof result === "string") {
+                                setPhotoSrc(result);
+                                localStorage.setItem(PHOTO_KEY, result);
+                              }
+                            };
+                            reader.readAsDataURL(file);
+                          }
+                        }}
+                      />
+                      <div className="w-full text-xs text-center px-3 py-2 rounded-md bg-background/90 border border-border text-foreground hover:border-neon-cyan transition-colors">
+                        Choose image from your system
+                      </div>
+                    </label>
+                    <button
+                      type="button"
+                      className="w-full max-w-xs text-xs text-center px-3 py-2 rounded-md bg-background/70 border border-border text-muted-foreground hover:text-foreground hover:border-destructive transition-colors"
+                      onClick={() =>
+                        {
+                          setPhotoSrc("https://placehold.co/600x600?text=Your+Photo");
+                          localStorage.removeItem(PHOTO_KEY);
+                        }
+                      }
+                    >
+                      Remove image
+                    </button>
                   </div>
                 </div>
                 
-                <div className="absolute -bottom-4 -right-4 w-24 h-24 rounded-lg bg-neon-pink/10 border border-neon-pink/30 flex items-center justify-center">
-                  <span className="font-mono text-neon-pink text-lg">5+ yrs</span>
+                <div className="absolute -bottom-4 -right-4 w-28 h-28 rounded-lg bg-neon-pink/10 border border-neon-pink/30 flex items-center justify-center">
+                  <span className="font-mono text-neon-pink text-sm text-center leading-tight">
+                    Fresher<br />Open to roles
+                  </span>
                 </div>
               </div>
             </div>
 
             <div className="space-y-6">
               <h2 className="text-2xl font-semibold">
-                Hello! I'm <span className="text-neon-cyan">Sumit</span>
+                Hello! I'm <span className="text-neon-cyan">Sumit Kumar</span>
               </h2>
               
               <div className="space-y-4 text-muted-foreground">
                 <p>
-                  I'm a full-stack developer with over 5 years of experience building
-                  web applications that combine beautiful design with powerful functionality.
-                  My journey in tech started with a curiosity about how things work on the web,
-                  and it's evolved into a passion for creating immersive digital experiences.
+                  I'm a fresher and aspiring data analyst, focused on building strong fundamentals
+                  in data cleaning, visualization, and storytelling with numbers.
                 </p>
                 <p>
-                  I specialize in React, TypeScript, and Node.js, but I'm always exploring
-                  new technologies. Recently, I've been diving deep into 3D web graphics
-                  with Three.js and WebGL to push the boundaries of what's possible in the browser.
+                  Currently sharpening skills in Python, SQL, spreadsheets, and dashboards while
+                  practicing with personal projects and public datasets.
                 </p>
                 <p>
-                  When I'm not coding, you'll find me exploring new design trends,
-                  contributing to open-source projects, or experimenting with generative art.
-                  I believe that the best products come from the intersection of technology
-                  and creativity.
+                  Looking for entry-level or internship opportunities where I can learn fast,
+                  contribute, and grow into a well-rounded data professional.
+                </p>
+                <p className="font-medium text-foreground">
+                  Pursuing BCA at <span className="text-neon-pink">Arcade Business College</span>.
                 </p>
               </div>
 
               <div className="flex flex-wrap gap-3 pt-4">
-                {['React', 'TypeScript', 'Node.js', 'Three.js', 'PostgreSQL'].map((skill) => (
+                {['Python', 'SQL', 'Spreadsheets', 'Data Visualization', 'Storytelling'].map((skill) => (
                   <span
                     key={skill}
                     className="px-3 py-1.5 rounded-md bg-secondary/50 text-sm font-medium"

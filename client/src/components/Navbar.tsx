@@ -47,13 +47,8 @@ export default function Navbar() {
             data-testid="link-logo"
           >
             <span className="text-neon-pink group-hover:drop-shadow-[0_0_10px_rgba(255,0,200,0.5)] transition-all">
-              S
+              SUMIT&nbsp;KUMAR
             </span>
-            <span className="text-foreground">umit</span>
-            <span className="text-neon-cyan group-hover:drop-shadow-[0_0_10px_rgba(0,229,255,0.5)] transition-all">
-              .
-            </span>
-            <span className="text-foreground">dev</span>
           </Link>
 
           <div className="hidden md:flex items-center gap-1">
